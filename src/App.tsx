@@ -12,6 +12,39 @@ function App() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [currentConfigName, setCurrentConfigName] = useState<string | null>(null);
   
+  // Load config from URL if present
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlConfig = params.get('config');
+    const urlName = params.get('name');
+    
+    if (urlConfig) {
+      setConfigStr(urlConfig);
+      if (urlName) {
+        setCurrentConfigName(urlName);
+      }
+    }
+  }, []);
+
+  // Sync config changes to URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (configStr) {
+      params.set('config', configStr);
+    } else {
+      params.delete('config');
+    }
+    
+    if (currentConfigName) {
+      params.set('name', currentConfigName);
+    } else {
+      params.delete('name');
+    }
+
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, '', newUrl);
+  }, [configStr, currentConfigName]);
+  
   const [error, setError] = useState<string | null>(null);
 
   // Update document title when config name changes
