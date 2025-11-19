@@ -49,6 +49,10 @@ function App() {
     setCurrentConfigName(name || null);
   }, []);
 
+  const handleResetTitle = useCallback(() => {
+    setCurrentConfigName(null);
+  }, []);
+
   return (
     <div className="app">
       <a 
@@ -70,7 +74,7 @@ function App() {
         refreshTrigger={refreshTrigger}
       />
 
-      <h1>Tea Timer</h1>
+      <h1>Tea Timer{currentConfigName && ` - ${currentConfigName}`}</h1>
       
       <div style={{ marginBottom: '2rem' }}>
         <ConfigInput 
@@ -80,7 +84,7 @@ function App() {
         />
       </div>
 
-      <TeaTimer stages={stages} error={error} />
+      <TeaTimer stages={stages} error={error} onResetTitle={handleResetTitle} />
     </div>
   );
 }

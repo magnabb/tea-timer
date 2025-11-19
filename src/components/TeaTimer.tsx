@@ -6,9 +6,10 @@ import { formatStageText } from '../utils/formatTime';
 interface TeaTimerProps {
   stages: Stage[];
   error: string | null;
+  onResetTitle?: () => void;
 }
 
-export const TeaTimer: React.FC<TeaTimerProps> = ({ stages, error }) => {
+export const TeaTimer: React.FC<TeaTimerProps> = ({ stages, error, onResetTitle }) => {
   const {
     currentStageIndex,
     currentStage,
@@ -277,6 +278,7 @@ export const TeaTimer: React.FC<TeaTimerProps> = ({ stages, error }) => {
           onClick={() => {
             if (window.confirm('Are you sure you want to restart the entire ceremony? This will reset all progress.')) {
               restart();
+              onResetTitle?.();
             }
           }}
         >
