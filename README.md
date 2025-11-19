@@ -77,6 +77,15 @@ npm run lint
 
 Run ESLint across TypeScript/TSX files using the flat config
 
+### Deploy to GitHub Pages
+
+```bash
+npm run build
+npx gh-pages -d dist
+```
+
+Deploy the production build to GitHub Pages manually
+
 ## Project Structure
 
 ```
