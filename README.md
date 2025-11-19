@@ -2,6 +2,8 @@
 
 > ✨ **Vibecoded with [Google Antigravity](https://antigravity.google/)** - This project was built using AI-assisted development.
 
+**[🚀 Live Demo](https://magnabb.github.io/tea-timer/)**
+
 A configurable tea brewing timer application built with React, TypeScript, and Vite. Perfect for Gong Fu tea ceremonies with multiple steeping stages.
 
 ## Features
