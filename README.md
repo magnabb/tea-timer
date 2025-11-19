@@ -1,73 +1,106 @@
-# React + TypeScript + Vite
+# Tea Timer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A configurable tea brewing timer application built with React, TypeScript, and Vite. Perfect for Gong Fu tea ceremonies with multiple steeping stages.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Configurable Brewing Stages**: Define custom brewing sequences with fixed or range-based durations
+- **Visual & Audio Feedback**: Background color changes and audio alerts for timing phases
+- **Keyboard Controls**: Full keyboard navigation for hands-free operation
+- **Saved Configurations**: Store and load multiple tea brewing profiles
+- **Rinse Stage Support**: Special handling for tea rinsing steps
+- **Responsive Timer**: Real-time countdown with progress visualization
 
-## React Compiler
+## Configuration Format
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Tea brewing sequences are defined using a simple text format:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+(3-5 -> 5-7) -> 10 -> 10-12 -> 15 -> 20 -> 25-30 -> 35-40 -> 50-60 -> 70-80 -> 90-100 -> 120-180
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Fixed Duration**: `10` (10 seconds)
+- **Range Duration**: `10-12` (10-12 seconds, user advances when ready)
+- **Rinse Stages**: `(3-5 -> 5-7)` (parentheses indicate rinse steps with visual distinction)
+- **Stage Separator**: `->` separates brewing stages
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Keyboard Shortcuts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Space / K / ↑**: Start/Pause timer
+- **J / ↓**: Reset current stage
+- **H / ←**: Previous stage
+- **L / →**: Next stage
+- **R**: Restart from first stage
+- **0-9**: Jump to specific stage (0 = stage 10)
+
+## Getting Started
+
+### Installation
+
+```bash
+npm install
 ```
+
+### Development
+
+```bash
+npm run dev
+```
+
+Start the Vite dev server with hot module replacement at `http://localhost:5173`
+
+### Build
+
+```bash
+npm run build
+```
+
+Type-check via `tsc -b` then emit optimized production assets to `dist/`
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+Serve the production bundle from `dist/` for testing
+
+### Linting
+
+```bash
+npm run lint
+```
+
+Run ESLint across TypeScript/TSX files using the flat config
+
+## Project Structure
+
+```
+src/
+├── components/       # React components
+│   ├── ConfigInput.tsx
+│   ├── ConfigSidebar.tsx
+│   └── TeaTimer.tsx
+├── hooks/           # Custom React hooks
+│   └── useTeaTimer.ts
+├── utils/           # Framework-agnostic utilities
+│   ├── audio.ts
+│   ├── formatTime.ts
+│   ├── parser.ts
+│   └── storage.ts
+├── assets/          # Static artwork
+├── App.tsx          # Main app orchestration
+├── main.tsx         # Vite + React bootstrap
+└── index.css        # Global styles
+```
+
+## Tech Stack
+
+- **React 19** - UI framework
+- **TypeScript 5.9** - Type safety
+- **Vite 7** - Build tool and dev server
+- **ESLint 9** - Code linting
+
+## Contributing
+
+See `AGENTS.md` for detailed development guidelines including coding style, testing approach, and commit conventions.
