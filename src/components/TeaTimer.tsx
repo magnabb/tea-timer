@@ -75,6 +75,8 @@ export const TeaTimer: React.FC<TeaTimerProps> = ({ stages, error, onResetTitle 
       }
       // Reset Stage: Down arrow, r, delete, cyrillic к
       else if (key === 'arrowdown' || key === 'r' || key === 'delete' || key === 'к') {
+        // Don't intercept Cmd+R or Ctrl+R (page reload)
+        if (e.metaKey || e.ctrlKey) return;
         e.preventDefault();
         if (error || stages.length === 0) return;
         triggerButtonPress(resetStageRef);
