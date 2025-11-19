@@ -1,0 +1,26 @@
+{
+  "server": {
+    "name": "tea-timer",
+    "version": "1.0.1"
+  },
+  "tools": [
+    {
+      "name": "generate_full_tea_timer_url",
+      "description": "Constructs and returns the FULL ABSOLUTE URL for the Tea Timer application. You must concatenate the base URL with the query parameters. For local development, the base is 'http://localhost:5173/tea-timer/'. For production, the base is 'https://magnabb.github.io/tea-timer/'. Example result: 'https://magnabb.github.io/tea-timer/?config=(3-5)->10&name=Oolong'. Do NOT return a relative path.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the tea or configuration."
+          },
+          "config": {
+            "type": "string",
+            "description": "The configuration string defining the stages (e.g., '(3-5) -> 10 -> 15')."
+          }
+        },
+        "required": ["name", "config"]
+      }
+    }
+  ]
+}
