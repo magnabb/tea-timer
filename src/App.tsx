@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { ConfigInput } from './components/ConfigInput';
 import { TeaTimer } from './components/TeaTimer';
 import { ConfigSidebar } from './components/ConfigSidebar';
@@ -10,8 +10,18 @@ function App() {
   const [configStr, setConfigStr] = useState('(3-5 -> 5-7) -> 10 -> 10-12 -> 15 -> 20 -> 25-30 -> 35-40 -> 50-60 -> 70-80 -> 90-100 -> 120-180');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [currentConfigName, setCurrentConfigName] = useState<string | null>(null);
   
   const [error, setError] = useState<string | null>(null);
+
+  // Update document title when config name changes
+  useEffect(() => {
+    if (currentConfigName) {
+      document.title = `${currentConfigName} | Tea Timer`;
+    } else {
+      document.title = 'Tea Timer';
+    }
+  }, [currentConfigName]);
   
   const stages = useMemo(() => {
     try {
@@ -21,7 +31,7 @@ function App() {
       }
       setError(null);
       return result;
-    } catch (e) {
+    } catch {
       setError('Incorrect configuration, please follow guidelines');
       return [];
     }
@@ -31,10 +41,12 @@ function App() {
     saveConfig(name, config);
     setRefreshTrigger(prev => prev + 1);
     setIsSidebarOpen(true); // Open sidebar to show saved config
+    setCurrentConfigName(name);
   }, []);
 
-  const handleLoad = useCallback((config: string) => {
+  const handleLoad = useCallback((config: string, name?: string) => {
     setConfigStr(config);
+    setCurrentConfigName(name || null);
   }, []);
 
   return (

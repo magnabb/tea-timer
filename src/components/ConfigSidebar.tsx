@@ -4,7 +4,7 @@ import { getSavedConfigs, deleteConfig, updateConfig, type SavedConfig } from '.
 interface ConfigSidebarProps {
   isOpen: boolean;
   onToggle: () => void;
-  onLoad: (config: string) => void;
+  onLoad: (config: string, name?: string) => void;
   refreshTrigger: number; // Simple way to trigger re-render when new config is saved
 }
 
@@ -100,7 +100,7 @@ export const ConfigSidebar: React.FC<ConfigSidebarProps> = ({ isOpen, onToggle, 
                     <div className="config-preview">{c.config}</div>
                     <button 
                       className="load-btn"
-                      onClick={() => onLoad(c.config)}
+                      onClick={() => onLoad(c.config, c.name)}
                     >
                       Load
                     </button>
