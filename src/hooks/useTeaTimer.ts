@@ -108,6 +108,12 @@ export const useTeaTimer = (stages: Stage[]) => {
 
   }, [elapsedTime, currentStage, status]);
 
+  // Reset to first stage when stages configuration changes
+  useEffect(() => {
+    setCurrentStageIndex(0);
+    reset();
+  }, [stages, reset]);
+
 
   // Set up interaction listeners to stop continuous sound
   useEffect(() => {
